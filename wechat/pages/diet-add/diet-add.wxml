@@ -1,0 +1,213 @@
+<scroll-view class="page" scroll-y enhanced shows-scrollbar="{{false}}">
+<view class="page-content">
+  <!-- 顶部导航 -->
+  <view class="nav-bar">
+    <view class="nav-left" bindtap="onBack">
+      <text class="nav-back">‹</text>
+    </view>
+    <text class="nav-title">添加{{mealNameMap[meal]}}</text>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 搜索框 -->
+  <view class="search-bar">
+    <text class="search-icon">🔍</text>
+    <input 
+      class="search-input" 
+      placeholder="搜索食物"
+      value="{{searchKeyword}}"
+      bindinput="onSearch"
+    />
+  </view>
+
+  <!-- 快速添加常用食物 -->
+  <view class="quick-add" wx:if="{{!searchKeyword}}">
+    <text class="section-title">快速添加</text>
+    <view class="food-grid">
+      <view 
+        wx:for="{{quickFoods}}" 
+        wx:key="id"
+        class="food-item {{item.isCustom ? 'custom-food' : ''}}"
+        bindtap="onSelectFood"
+        data-food="{{item}}"
+      >
+        <!-- 删除按钮（仅自定义食物显示） -->
+        <view 
+          wx:if="{{item.isCustom}}" 
+          class="delete-btn"
+          catchtap="onDeleteCustomFood"
+          data-id="{{item.id}}"
+          data-name="{{item.name}}"
+        >×</view>
+        
+        <view class="food-icon-wrapper">
+          <image 
+            wx:if="{{item.customImage}}" 
+            class="food-icon-img" 
+            src="{{item.customImage}}" 
+            mode="aspectFill"
+          />
+          <text wx:else class="food-icon">{{item.icon}}</text>
+        </view>
+        <text class="food-name">{{item.name}}</text>
+        <text class="food-cal">{{item.calories}}千卡</text>
+        <text wx:if="{{item.isCustom}}" class="custom-tag">自定义</text>
+      </view>
+    </view>
+    
+    <!-- 自定义食物提示 -->
+    <view class="custom-hint" wx:if="{{customFoods.length > 0}}">
+      <text class="hint-text">提示：点击自定义食物右上角 × 可删除</text>
+    </view>
+  </view>
+
+  <!-- 搜索结果 -->
+  <view class="search-results" wx:if="{{searchKeyword && searchResults.length > 0}}">
+    <view 
+      wx:for="{{searchResults}}" 
+      wx:key="id"
+      class="result-item"
+      bindtap="onSelectFood"
+      data-food="{{item}}"
+    >
+      <view class="result-left">
+        <text class="result-icon">{{item.icon}}</text>
+        <view class="result-info">
+          <text class="result-name">{{item.name}}</text>
+          <text class="result-desc">每100g · {{item.calories}}千卡</text>
+        </view>
+      </view>
+      <text class="result-add">+</text>
+    </view>
+  </view>
+
+  <!-- 无搜索结果提示 -->
+  <view class="no-result" wx:if="{{searchKeyword && searchResults.length === 0}}">
+    <text class="no-result-text">没有找到 "{{searchKeyword}}" 相关食物</text>
+    <text class="no-result-hint">请使用自定义添加</text>
+  </view>
+
+  <!-- 自定义添加 -->
+  <view class="custom-add">
+    <text class="section-title">自定义添加</text>
+    <view class="custom-form">
+      <view class="form-item">
+        <text class="form-label">食物名称</text>
+        <input 
+          class="form-input" 
+          placeholder="输入食物名称"
+          value="{{customFood.name}}"
+          bindinput="onCustomNameInput"
+        />
+      </view>
+      <view class="form-row">
+        <view class="form-item half">
+          <text class="form-label">热量 (千卡)</text>
+          <input 
+            class="form-input" 
+            type="digit"
+            placeholder="0"
+            value="{{customFood.calories}}"
+            bindinput="onCustomCaloriesInput"
+          />
+        </view>
+        <view class="form-item half">
+          <text class="form-label">份量 (克)</text>
+          <input 
+            class="form-input" 
+            type="digit"
+            placeholder="100"
+            value="{{customFood.portion}}"
+            bindinput="onCustomPortionInput"
+          />
+        </view>
+      </view>
+      <view class="form-row">
+        <view class="form-item half">
+          <text class="form-label">蛋白质 (g)</text>
+          <input 
+            class="form-input" 
+            type="digit"
+            placeholder="0"
+            value="{{customFood.protein}}"
+            bindinput="onCustomProteinInput"
+          />
+        </view>
+        <view class="form-item half">
+          <text class="form-label">碳水 (g)</text>
+          <input 
+            class="form-input" 
+            type="digit"
+            placeholder="0"
+            value="{{customFood.carbs}}"
+            bindinput="onCustomCarbsInput"
+          />
+        </view>
+      </view>
+      <view class="form-item">
+        <text class="form-label">脂肪 (g)</text>
+        <input 
+          class="form-input" 
+          type="digit"
+          placeholder="0"
+          value="{{customFood.fat}}"
+          bindinput="onCustomFatInput"
+        />
+      </view>
+
+      <!-- 备注 -->
+      <view class="form-item">
+        <text class="form-label">备注</text>
+        <input 
+          class="form-input" 
+          placeholder="例如：少油、少盐、半份..."
+          value="{{customFood.remark}}"
+          bindinput="onCustomRemarkInput"
+        />
+      </view>
+
+      <!-- 图标选择 -->
+      <view class="form-item">
+        <text class="form-label">选择图标</text>
+        <view class="icon-picker">
+          <text 
+            wx:for="{{iconList}}" 
+            wx:key="index"
+            class="icon-option {{customFood.icon === item && !customFood.customImage ? 'selected' : ''}}"
+            bindtap="onSelectIcon"
+            data-icon="{{item}}"
+          >{{item}}</text>
+        </view>
+        
+        <!-- 自定义图片上传 -->
+        <view class="custom-image-picker">
+          <view 
+            class="icon-option custom-image-btn {{customFood.customImage ? 'selected' : ''}}"
+            bindtap="onUploadCustomImage"
+          >
+            <text wx:if="{{!customFood.customImage}}">+</text>
+            <image 
+              wx:else 
+              class="custom-image-preview" 
+              src="{{customFood.customImage}}" 
+              mode="aspectFill"
+            />
+          </view>
+          <text class="custom-image-hint">点击上传图片</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部保存按钮区域 -->
+  <view class="bottom-action">
+    <button class="save-btn" bindtap="onAddCustomFood">
+      <text class="save-icon">✓</text>
+      <text class="save-text">添加并保存到快速添加</text>
+    </button>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-bottom"></view>
+</view>
+</scroll-view>

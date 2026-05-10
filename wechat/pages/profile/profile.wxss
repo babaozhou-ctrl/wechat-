@@ -1,0 +1,29 @@
+/* pages/profile/profile.wxss */
+.page { height: 100vh; background: #f5f6f8; }
+.page-content { padding-bottom: 40rpx; }
+.nav-bar { display: flex; align-items: center; padding: 60rpx 30rpx 20rpx; background: #fff; }
+.nav-left { width: 80rpx; }
+.nav-back { font-size: 48rpx; color: #333; }
+.nav-title { flex: 1; text-align: center; font-size: 32rpx; font-weight: 600; color: #333; }
+
+/* 头像昵称卡片 */
+.profile-card { background: #fff; margin: 20rpx 30rpx; border-radius: 16rpx; padding: 50rpx; text-align: center; }
+.avatar-wrapper { display: inline-block; }
+.avatar { width: 140rpx; height: 140rpx; background: #f0f0f0; border-radius: 50%; margin: 0 auto 16rpx; display: flex; align-items: center; justify-content: center; font-size: 80rpx; }
+.edit-avatar-tip { font-size: 22rpx; color: #999; margin-bottom: 20rpx; }
+.nickname-wrapper { display: flex; align-items: center; justify-content: center; gap: 12rpx; }
+.nickname { font-size: 36rpx; font-weight: 600; color: #333; }
+.edit-icon { font-size: 28rpx; }
+
+/* 设置区域 */
+.settings-section { background: #fff; margin: 20rpx 30rpx; border-radius: 16rpx; padding: 30rpx; }
+.section-title { font-size: 28rpx; font-weight: 600; color: #333; margin-bottom: 20rpx; }
+.setting-item { display: flex; align-items: center; padding: 24rpx 0; border-bottom: 1rpx solid #f0f0f0; }
+.setting-item:last-child { border-bottom: none; }
+.setting-icon { font-size: 36rpx; margin-right: 16rpx; }
+.setting-label { flex: 1; font-size: 28rpx; color: #333; }
+.setting-value { font-size: 26rpx; color: #999; margin-right: 12rpx; }
+.setting-arrow { font-size: 28rpx; color: #ccc; }
+
+/* 安全底部 */
+.safe-bottom { height: env(safe-area-inset-bottom); height: constant(safe-area-inset-bottom); }

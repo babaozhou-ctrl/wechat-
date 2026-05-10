@@ -1,0 +1,290 @@
+/* pages/water/water.wxss */
+
+.page {
+  height: 100vh;
+  background: #f5f6f8;
+}
+
+.page-content {
+  padding-bottom: 40rpx;
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60rpx 30rpx 20rpx;
+  background: #fff;
+}
+
+.nav-left {
+  width: 80rpx;
+}
+
+.nav-back {
+  font-size: 48rpx;
+  color: #333;
+  font-weight: 300;
+}
+
+.nav-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 进度区域 */
+.progress-section {
+  background: linear-gradient(135deg, #87CEEB 0%, #5BA8D8 100%);
+  margin: 20rpx 30rpx;
+  border-radius: 24rpx;
+  padding: 40rpx 30rpx;
+  display: flex;
+  align-items: center;
+}
+
+.water-cup {
+  width: 160rpx;
+  height: 200rpx;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 0 0 80rpx 80rpx;
+  position: relative;
+  overflow: hidden;
+  margin-right: 30rpx;
+}
+
+.cup-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.6);
+  transition: height 0.5s ease;
+}
+
+.cup-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.cup-icon {
+  font-size: 40rpx;
+  display: block;
+}
+
+.cup-value {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #5BA8D8;
+  display: block;
+}
+
+.cup-unit {
+  font-size: 20rpx;
+  color: #5BA8D8;
+}
+
+.progress-info {
+  flex: 1;
+}
+
+.progress-text {
+  font-size: 26rpx;
+  color: #fff;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.progress-bar {
+  height: 12rpx;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #fff;
+  border-radius: 6rpx;
+  transition: width 0.5s ease;
+}
+
+/* 快捷添加 */
+.quick-add-section {
+  background: #fff;
+  margin: 20rpx 30rpx;
+  border-radius: 24rpx;
+  padding: 30rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.quick-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.quick-btn {
+  width: calc(33.33% - 12rpx);
+  padding: 24rpx;
+  background: #E5F4FF;
+  border-radius: 16rpx;
+  text-align: center;
+}
+
+.quick-btn.primary {
+  background: linear-gradient(135deg, #87CEEB 0%, #5BA8D8 100%);
+}
+
+.quick-btn.custom {
+  background: #f5f6f8;
+  border: 2rpx dashed #ccc;
+}
+
+.btn-value {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #5BA8D8;
+  display: block;
+}
+
+.quick-btn.primary .btn-value,
+.quick-btn.custom .btn-value {
+  color: #5BA8D8;
+}
+
+.quick-btn.custom .btn-value {
+  font-size: 40rpx;
+}
+
+.btn-unit {
+  font-size: 22rpx;
+  color: #5BA8D8;
+  opacity: 0.8;
+}
+
+.quick-btn.primary .btn-unit {
+  color: #fff;
+}
+
+/* 提醒设置 */
+.reminder-section {
+  background: #fff;
+  margin: 20rpx 30rpx;
+  border-radius: 24rpx;
+  padding: 30rpx;
+}
+
+.reminder-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reminder-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.reminder-settings {
+  margin-top: 20rpx;
+}
+
+.reminder-desc {
+  font-size: 24rpx;
+  color: #999;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.reminder-slider {
+  margin: 0;
+}
+
+/* 今日记录 */
+.record-section {
+  background: #fff;
+  margin: 20rpx 30rpx;
+  border-radius: 24rpx;
+  padding: 30rpx;
+}
+
+.record-list {
+  margin-top: 10rpx;
+}
+
+.record-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.record-item:last-child {
+  border-bottom: none;
+}
+
+.record-time {
+  font-size: 26rpx;
+  color: #999;
+  width: 100rpx;
+}
+
+.record-amount {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.amount-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.amount-value {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.record-delete {
+  font-size: 36rpx;
+  color: #ccc;
+  padding: 0 16rpx;
+}
+
+.no-record {
+  text-align: center;
+  padding: 60rpx 0;
+}
+
+.no-record-icon {
+  font-size: 80rpx;
+  opacity: 0.5;
+  display: block;
+}
+
+.no-record-text {
+  font-size: 28rpx;
+  color: #999;
+  margin-top: 16rpx;
+  display: block;
+}
+
+.no-record-hint {
+  font-size: 24rpx;
+  color: #ccc;
+  margin-top: 8rpx;
+  display: block;
+}

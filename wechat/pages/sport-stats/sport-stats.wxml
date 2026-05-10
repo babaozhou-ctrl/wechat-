@@ -1,0 +1,175 @@
+<scroll-view class="page" scroll-y enhanced shows-scrollbar="{{false}}">
+<view class="page-content">
+  <!-- 顶部Tab切换 -->
+  <view class="tab-bar">
+    <view 
+      class="tab-item {{currentTab === 'week' ? 'active' : ''}}" 
+      bindtap="onSwitchTab" 
+      data-tab="week"
+    >
+      本周
+    </view>
+    <view 
+      class="tab-item {{currentTab === 'month' ? 'active' : ''}}" 
+      bindtap="onSwitchTab" 
+      data-tab="month"
+    >
+      本月
+    </view>
+    <view 
+      class="tab-item {{currentTab === 'trend' ? 'active' : ''}}" 
+      bindtap="onSwitchTab" 
+      data-tab="trend"
+    >
+      趋势
+    </view>
+    <view 
+      class="tab-item {{currentTab === 'type' ? 'active' : ''}}" 
+      bindtap="onSwitchTab" 
+      data-tab="type"
+    >
+      类型
+    </view>
+  </view>
+
+  <!-- 统计卡片 -->
+  <view class="stats-summary">
+    <view class="stats-card">
+      <text class="stats-value">{{summary.totalDistance}}</text>
+      <text class="stats-unit">公里</text>
+      <text class="stats-label">总距离</text>
+    </view>
+    <view class="stats-card">
+      <text class="stats-value">{{summary.totalDuration}}</text>
+      <text class="stats-unit">分钟</text>
+      <text class="stats-label">总时长</text>
+    </view>
+    <view class="stats-card">
+      <text class="stats-value">{{summary.totalCalories}}</text>
+      <text class="stats-unit">千卡</text>
+      <text class="stats-label">总消耗</text>
+    </view>
+    <view class="stats-card">
+      <text class="stats-value">{{summary.sportCount}}</text>
+      <text class="stats-unit">次</text>
+      <text class="stats-label">运动次数</text>
+    </view>
+  </view>
+
+  <!-- 图表区域 -->
+  <view class="charts-container">
+    <!-- 周/日趋势图 -->
+    <view class="chart-card" wx:if="{{currentTab === 'week' || currentTab === 'month'}}">
+      <view class="chart-header">
+        <text class="chart-title">{{currentTab === 'week' ? '本周运动趋势' : '本月运动趋势'}}</text>
+      </view>
+      <view class="chart-wrapper">
+        <ec-canvas 
+          id="trendChart" 
+          canvas-id="trendChart" 
+          ec="{{ trendChartEc }}">
+        </ec-canvas>
+      </view>
+    </view>
+
+    <!-- 趋势图 -->
+    <view class="chart-card" wx:if="{{currentTab === 'trend'}}">
+      <view class="chart-header">
+        <text class="chart-title">运动趋势</text>
+        <picker mode="selector" range="{{trendRange}}" bindchange="onTrendRangeChange">
+          <text class="picker-text">{{trendRange[trendRangeIndex]}}</text>
+        </picker>
+      </view>
+      <view class="chart-wrapper">
+        <ec-canvas 
+          id="longTrendChart" 
+          canvas-id="longTrendChart" 
+          ec="{{ longTrendChartEc }}">
+        </ec-canvas>
+      </view>
+    </view>
+
+    <!-- 运动类型分布 -->
+    <view class="chart-card" wx:if="{{currentTab === 'type'}}">
+      <view class="chart-header">
+        <text class="chart-title">运动类型分布</text>
+      </view>
+      <view class="chart-content-row">
+        <view class="chart-wrapper-small">
+          <ec-canvas 
+            id="pieChart" 
+            canvas-id="pieChart" 
+            ec="{{ pieChartEc }}">
+          </ec-canvas>
+        </view>
+        <view class="type-list">
+          <view class="type-item" wx:for="{{typeData}}" wx:key="index">
+            <view class="type-color" style="background: {{item.color}}"></view>
+            <text class="type-name">{{item.name}}</text>
+            <text class="type-value">{{item.value}}次</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 周对比图 -->
+    <view class="chart-card" wx:if="{{currentTab === 'week'}}">
+      <view class="chart-header">
+        <text class="chart-title">周对比</text>
+      </view>
+      <view class="chart-wrapper">
+        <ec-canvas 
+          id="compareChart" 
+          canvas-id="compareChart" 
+          ec="{{ compareChartEc }}">
+        </ec-canvas>
+      </view>
+    </view>
+
+    <!-- 月数据日历 -->
+    <view class="chart-card" wx:if="{{currentTab === 'month'}}">
+      <view class="chart-header">
+        <text class="chart-title">{{currentMonthName}} 运动日历</text>
+      </view>
+      <view class="calendar-grid">
+        <view class="calendar-week">
+          <text wx:for="{{weekDays}}" wx:key="index" class="week-day">{{item}}</text>
+        </view>
+        <view class="calendar-days">
+          <view 
+            class="calendar-day {{item.hasSport ? 'active' : ''}}" 
+            wx:for="{{calendarDays}}" 
+            wx:key="index"
+          >
+            <text>{{item.day}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 详细数据列表 -->
+  <view class="detail-section">
+    <view class="section-title">最近运动记录</view>
+    <view class="record-list">
+      <view class="record-item" wx:for="{{recentRecords}}" wx:key="index">
+        <view class="record-icon">{{item.sportIcon}}</view>
+        <view class="record-info">
+          <text class="record-name">{{item.sportName}}</text>
+          <text class="record-date">{{item.dateStr}}</text>
+        </view>
+        <view class="record-data">
+          <text class="record-distance">{{item.distance}}km</text>
+          <text class="record-duration">{{item.durationStr}}</text>
+        </view>
+      </view>
+      <view class="empty-tip" wx:if="{{recentRecords.length === 0}}">
+        <text>暂无运动记录</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-bottom"></view>
+</view>
+</scroll-view>

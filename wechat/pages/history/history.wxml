@@ -1,0 +1,372 @@
+<scroll-view class="page" scroll-y enhanced shows-scrollbar="{{false}}">
+<view class="page-content">
+  <!-- 顶部导航 -->
+  <view class="nav-bar">
+    <view class="nav-left">
+      <text class="nav-back" bindtap="onBack">‹</text>
+    </view>
+    <text class="nav-title">数据统计</text>
+    <view class="nav-right">
+      <text class="today-btn" bindtap="onGoToday">今天</text>
+    </view>
+  </view>
+
+  <!-- 时间维度选择 -->
+  <view class="view-mode-bar">
+    <view class="view-mode-tabs">
+      <text 
+        class="view-mode-tab {{viewMode === 'day' ? 'active' : ''}}" 
+        data-mode="day"
+        bindtap="onViewModeChange"
+      >日</text>
+      <text 
+        class="view-mode-tab {{viewMode === 'week' ? 'active' : ''}}" 
+        data-mode="week"
+        bindtap="onViewModeChange"
+      >周</text>
+      <text 
+        class="view-mode-tab {{viewMode === 'month' ? 'active' : ''}}" 
+        data-mode="month"
+        bindtap="onViewModeChange"
+      >月</text>
+      <text 
+        class="view-mode-tab {{viewMode === 'year' ? 'active' : ''}}" 
+        data-mode="year"
+        bindtap="onViewModeChange"
+      >年</text>
+    </view>
+  </view>
+
+  <!-- 日期导航 -->
+  <view class="date-nav-bar">
+    <view class="date-nav-btn" bindtap="onPrev">
+      <text class="nav-arrow">‹</text>
+    </view>
+    <view class="date-display">
+      <text class="date-text">{{displayText}}</text>
+    </view>
+    <view class="date-nav-btn" bindtap="onNext">
+      <text class="nav-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- Tab切换 -->
+  <view class="tab-bar">
+    <view 
+      class="tab-item {{activeTab === 'weight' ? 'active' : ''}}" 
+      data-tab="weight"
+      bindtap="onTabChange"
+    >
+      <text class="tab-icon">⚖️</text>
+      <text class="tab-name">体重</text>
+    </view>
+    <view 
+      class="tab-item {{activeTab === 'sport' ? 'active' : ''}}" 
+      data-tab="sport"
+      bindtap="onTabChange"
+    >
+      <text class="tab-icon">🏃</text>
+      <text class="tab-name">运动</text>
+    </view>
+    <view 
+      class="tab-item {{activeTab === 'sleep' ? 'active' : ''}}" 
+      data-tab="sleep"
+      bindtap="onTabChange"
+    >
+      <text class="tab-icon">😴</text>
+      <text class="tab-name">睡眠</text>
+    </view>
+    <view 
+      class="tab-item {{activeTab === 'diet' ? 'active' : ''}}" 
+      data-tab="diet"
+      bindtap="onTabChange"
+    >
+      <text class="tab-icon">🍽️</text>
+      <text class="tab-name">饮食</text>
+    </view>
+    <view 
+      class="tab-item {{activeTab === 'water' ? 'active' : ''}}" 
+      data-tab="water"
+      bindtap="onTabChange"
+    >
+      <text class="tab-icon">💧</text>
+      <text class="tab-name">饮水</text>
+    </view>
+    <view 
+      class="tab-item {{activeTab === 'steps' ? 'active' : ''}}" 
+      data-tab="steps"
+      bindtap="onTabChange"
+    >
+      <text class="tab-icon">👟</text>
+      <text class="tab-name">步数</text>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-state" wx:if="{{isLoading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 体重数据 -->
+  <view class="data-content" wx:if="{{activeTab === 'weight' && !isLoading}}">
+    <!-- 概览卡片 -->
+    <view class="overview-card">
+      <view class="overview-main">
+        <text class="overview-value">{{currentWeight || '--'}}</text>
+        <text class="overview-unit">kg</text>
+      </view>
+      <view class="overview-trend {{weightTrend > 0 ? 'up' : weightTrend < 0 ? 'down' : ''}}">
+        <text wx:if="{{weightTrend > 0}}">↑ {{weightTrend}}kg</text>
+        <text wx:elif="{{weightTrend < 0}}">↓ {{weightTrend}}kg</text>
+        <text wx:else>持平</text>
+      </view>
+      <view class="overview-target">
+        <text class="target-label">目标</text>
+        <text class="target-value">{{targetWeight}}kg</text>
+      </view>
+    </view>
+
+    <!-- 趋势图区域 -->
+    <view class="chart-card">
+      <text class="chart-title">体重趋势</text>
+      <view class="trend-chart">
+        <view class="chart-empty" wx:if="{{weightData.length === 0}}">
+          <text>暂无数据</text>
+        </view>
+        <view class="chart-bars" wx:else>
+          <view 
+            wx:for="{{weightData}}" 
+            wx:key="index"
+            class="chart-bar-item"
+          >
+            <view class="bar-container">
+              <view 
+                class="bar-fill weight"
+                style="height: {{(item.weight / 100) * 100}}%"
+              ></view>
+            </view>
+            <text class="bar-label">{{item.weight}}kg</text>
+            <text class="bar-date">{{item.date}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 详细记录 -->
+    <view class="records-card">
+      <text class="records-title">记录详情</text>
+      <view class="record-list">
+        <view wx:for="{{weightData}}" wx:key="index" class="record-item">
+          <view class="record-left">
+            <text class="record-icon">⚖️</text>
+            <view class="record-info">
+              <text class="record-name">{{item.weight}} kg</text>
+              <text class="record-date">{{item.date}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 运动数据 -->
+  <view class="data-content" wx:if="{{activeTab === 'sport' && !isLoading}}">
+    <!-- 概览卡片 -->
+    <view class="overview-card">
+      <view class="overview-row">
+        <view class="overview-item">
+          <text class="overview-value">{{totalSportMinutes}}</text>
+          <text class="overview-label">分钟</text>
+        </view>
+        <view class="overview-divider"></view>
+        <view class="overview-item">
+          <text class="overview-value">{{totalCalories}}</text>
+          <text class="overview-label">千卡</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 运动类型统计 -->
+    <view class="chart-card">
+      <text class="chart-title">运动记录</text>
+      <view class="record-list">
+        <view wx:for="{{sportData}}" wx:key="index" class="record-item">
+          <view class="record-left">
+            <text class="record-icon">{{item.icon || '🏃'}}</text>
+            <view class="record-info">
+              <text class="record-name">{{item.sportType || '运动'}}</text>
+              <text class="record-desc">{{item.duration || 0}}分钟 · {{item.calories || 0}}千卡</text>
+            </view>
+          </view>
+          <text class="record-date">{{item.date}}</text>
+        </view>
+        <view class="empty-hint" wx:if="{{sportData.length === 0}}">
+          <text>暂无运动记录</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 睡眠数据 -->
+  <view class="data-content" wx:if="{{activeTab === 'sleep' && !isLoading}}">
+    <!-- 概览卡片 -->
+    <view class="overview-card">
+      <view class="overview-row">
+        <view class="overview-item">
+          <text class="overview-value">{{avgSleepHours}}</text>
+          <text class="overview-label">平均时长(小时)</text>
+        </view>
+        <view class="overview-divider"></view>
+        <view class="overview-item">
+          <text class="overview-value">{{avgSleepQuality}}</text>
+          <text class="overview-label">睡眠质量(分)</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 睡眠质量显示 -->
+    <view class="chart-card">
+      <text class="chart-title">睡眠记录</text>
+      <view class="sleep-quality-display">
+        <view wx:for="{{[1,2,3,4,5]}}" wx:key="index" class="quality-star {{item <= avgSleepQuality ? 'active' : ''}}">
+          <text>⭐</text>
+        </view>
+      </view>
+      <view class="record-list">
+        <view wx:for="{{sleepData}}" wx:key="index" class="record-item">
+          <view class="record-left">
+            <text class="record-icon">😴</text>
+            <view class="record-info">
+              <text class="record-name">{{item.hours || 0}} 小时</text>
+              <text class="record-desc">质量: {{item.quality || 3}}/5</text>
+            </view>
+          </view>
+          <text class="record-date">{{item.date}}</text>
+        </view>
+        <view class="empty-hint" wx:if="{{sleepData.length === 0}}">
+          <text>暂无睡眠记录</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 饮食数据 -->
+  <view class="data-content" wx:if="{{activeTab === 'diet' && !isLoading}}">
+    <!-- 概览卡片 -->
+    <view class="overview-card">
+      <view class="overview-main">
+        <text class="overview-value">{{avgCalories}}</text>
+        <text class="overview-unit">千卡/天</text>
+      </view>
+      <view class="overview-sub">
+        <text>日均摄入</text>
+      </view>
+    </view>
+
+    <!-- 饮食记录 -->
+    <view class="chart-card">
+      <text class="chart-title">饮食记录</text>
+      <view class="record-list diet-list">
+        <view wx:for="{{dietData}}" wx:key="index" class="record-item diet-item">
+          <view class="record-left">
+            <image wx:if="{{item.customImage}}" class="record-image" src="{{item.customImage}}" mode="aspectFill"/>
+            <text wx:else class="record-icon">{{item.icon || '🍽️'}}</text>
+            <view class="record-info">
+              <text class="record-name">{{item.name}}</text>
+              <text class="record-desc">{{item.portion || 100}}g</text>
+            </view>
+          </view>
+          <view class="record-right">
+            <text class="record-cal">{{item.calories || 0}}千卡</text>
+            <text class="record-time">{{item.time || ''}}</text>
+          </view>
+        </view>
+        <view class="empty-hint" wx:if="{{dietData.length === 0}}">
+          <text>暂无饮食记录</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 饮水数据 -->
+  <view class="data-content" wx:if="{{activeTab === 'water' && !isLoading}}">
+    <!-- 概览卡片 -->
+    <view class="overview-card">
+      <view class="overview-main">
+        <text class="overview-value">{{avgWater}}</text>
+        <text class="overview-unit">ml/天</text>
+      </view>
+      <view class="overview-target">
+        <text class="target-label">目标</text>
+        <text class="target-value">2000ml</text>
+      </view>
+      <view class="water-progress">
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{(avgWater / 2000) * 100}}%"></view>
+        </view>
+        <text class="progress-text">{{Math.round((avgWater / 2000) * 100)}}%</text>
+      </view>
+    </view>
+
+    <!-- 饮水记录 -->
+    <view class="chart-card">
+      <text class="chart-title">饮水记录</text>
+      <view class="record-list">
+        <view wx:for="{{waterData}}" wx:key="index" class="record-item">
+          <view class="record-left">
+            <text class="record-icon">💧</text>
+            <view class="record-info">
+              <text class="record-name">{{item.amount || 0}} ml</text>
+            </view>
+          </view>
+          <text class="record-date">{{item.date}}</text>
+        </view>
+        <view class="empty-hint" wx:if="{{waterData.length === 0}}">
+          <text>暂无饮水记录</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 步数数据 -->
+  <view class="data-content" wx:if="{{activeTab === 'steps' && !isLoading}}">
+    <!-- 概览卡片 -->
+    <view class="overview-card">
+      <view class="overview-main">
+        <text class="overview-value">{{avgSteps}}</text>
+        <text class="overview-unit">步/天</text>
+      </view>
+      <view class="steps-progress">
+        <view class="progress-ring">
+          <view class="ring-bg"></view>
+          <view class="ring-fill" style="transform: rotate({{Math.min((avgSteps / 10000) * 360, 360)}}deg)"></view>
+        </view>
+        <text class="progress-goal">目标: 10000步</text>
+      </view>
+    </view>
+
+    <!-- 步数记录 -->
+    <view class="chart-card">
+      <text class="chart-title">步数记录</text>
+      <view class="record-list">
+        <view wx:for="{{stepsData}}" wx:key="index" class="record-item">
+          <view class="record-left">
+            <text class="record-icon">👟</text>
+            <view class="record-info">
+              <text class="record-name">{{item.steps || 0}} 步</text>
+              <text class="record-desc">{{item.distance || 0}} km</text>
+            </view>
+          </view>
+          <text class="record-date">{{item.date}}</text>
+        </view>
+        <view class="empty-hint" wx:if="{{stepsData.length === 0}}">
+          <text>暂无步数记录</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-bottom"></view>
+</view>
+</scroll-view>

@@ -1,0 +1,282 @@
+/* pages/sport-stats/sport-stats.wxss */
+
+.page {
+  height: 100vh;
+  background: #f5f5f5;
+}
+
+.page-content {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Tab切换栏 */
+.tab-bar {
+  display: flex;
+  background: #fff;
+  padding: 0 30rpx;
+  border-bottom: 1rpx solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 0;
+  font-size: 28rpx;
+  color: #666;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.tab-item.active {
+  color: #07c160;
+  font-weight: 600;
+}
+
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48rpx;
+  height: 4rpx;
+  background: #07c160;
+  border-radius: 2rpx;
+}
+
+/* 统计卡片 */
+.stats-summary {
+  display: flex;
+  padding: 30rpx;
+  gap: 20rpx;
+  background: linear-gradient(135deg, #07c160, #05a554);
+}
+
+.stats-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 16rpx;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16rpx;
+}
+
+.stats-value {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #fff;
+}
+
+.stats-unit {
+  font-size: 20rpx;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 4rpx;
+}
+
+.stats-label {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 8rpx;
+}
+
+/* 图表容器 */
+.charts-container {
+  padding: 20rpx 30rpx;
+}
+
+.chart-card {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.chart-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.picker-text {
+  font-size: 24rpx;
+  color: #666;
+  padding: 8rpx 16rpx;
+  background: #f5f5f5;
+  border-radius: 8rpx;
+}
+
+.chart-wrapper {
+  height: 400rpx;
+}
+
+.chart-wrapper-small {
+  height: 320rpx;
+  width: 320rpx;
+}
+
+.chart-content-row {
+  display: flex;
+  align-items: center;
+  gap: 30rpx;
+}
+
+/* 类型列表 */
+.type-list {
+  flex: 1;
+}
+
+.type-item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.type-item:last-child {
+  border-bottom: none;
+}
+
+.type-color {
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 4rpx;
+  margin-right: 16rpx;
+}
+
+.type-name {
+  flex: 1;
+  font-size: 26rpx;
+  color: #333;
+}
+
+.type-value {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 日历网格 */
+.calendar-grid {
+  padding: 10rpx 0;
+}
+
+.calendar-week {
+  display: flex;
+  margin-bottom: 16rpx;
+}
+
+.week-day {
+  flex: 1;
+  text-align: center;
+  font-size: 22rpx;
+  color: #999;
+}
+
+.calendar-days {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.calendar-day {
+  width: 14.28%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  color: #333;
+}
+
+.calendar-day.active {
+  background: #07c160;
+  color: #fff;
+  border-radius: 50%;
+}
+
+/* 详细数据列表 */
+.detail-section {
+  padding: 0 30rpx 30rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.record-list {
+  background: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.record-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.record-item:last-child {
+  border-bottom: none;
+}
+
+.record-icon {
+  font-size: 40rpx;
+  margin-right: 20rpx;
+}
+
+.record-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.record-name {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.record-date {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 6rpx;
+}
+
+.record-data {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.record-distance {
+  font-size: 28rpx;
+  color: #07c160;
+  font-weight: 600;
+}
+
+.record-duration {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 6rpx;
+}
+
+.empty-tip {
+  padding: 60rpx;
+  text-align: center;
+  color: #999;
+  font-size: 26rpx;
+}

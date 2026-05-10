@@ -1,0 +1,373 @@
+/* pages/sport-record/sport-record.wxss */
+
+.page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1a2a3a 0%, #0a1628 100%);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* 语音提示覆盖层 */
+.voice-tip-overlay {
+  position: fixed;
+  top: 200rpx;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 200;
+  pointer-events: none;
+}
+
+.voice-tip-content {
+  background: linear-gradient(135deg, rgba(7, 193, 96, 0.95), rgba(5, 165, 84, 0.95));
+  padding: 24rpx 48rpx;
+  border-radius: 50rpx;
+  box-shadow: 0 8rpx 32rpx rgba(7, 193, 96, 0.4);
+  animation: voiceTipFade 3s ease-in-out;
+}
+
+.voice-tip-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}
+
+@keyframes voiceTipFade {
+  0% { opacity: 0; transform: translateY(-20rpx); }
+  10% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-20rpx); }
+}
+
+/* 导航栏 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 88rpx;
+  padding: 0 30rpx;
+  padding-top: env(safe-area-inset-top);
+  background: rgba(10, 22, 40, 0.95);
+}
+
+.nav-left {
+  flex: 1;
+}
+
+.sport-type {
+  display: flex;
+  align-items: center;
+}
+
+.sport-icon {
+  font-size: 40rpx;
+  margin-right: 12rpx;
+}
+
+.sport-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #fff;
+}
+
+.nav-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+/* 语音按钮 */
+.voice-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60rpx;
+  height: 60rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.voice-btn.active {
+  background: rgba(7, 193, 96, 0.3);
+}
+
+.voice-btn .voice-icon {
+  font-size: 28rpx;
+}
+
+.voice-btn:active {
+  transform: scale(0.9);
+}
+
+.gps-status {
+  display: flex;
+  align-items: center;
+  padding: 8rpx 16rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  color: #999;
+}
+
+.gps-status.active {
+  background: rgba(7, 193, 96, 0.2);
+  color: #07c160;
+}
+
+.gps-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #999;
+  margin-right: 8rpx;
+}
+
+.gps-status.active .gps-dot {
+  background: #07c160;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.8); }
+}
+
+/* 迷你地图 */
+.map-container {
+  height: 300rpx;
+  margin: 20rpx 30rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: relative;
+  border: 2rpx solid rgba(255, 255, 255, 0.1);
+}
+
+.mini-map {
+  width: 100%;
+  height: 100%;
+}
+
+.map-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 22, 40, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-hint {
+  font-size: 26rpx;
+  color: #fff;
+  background: rgba(7, 193, 96, 0.3);
+  padding: 12rpx 24rpx;
+  border-radius: 24rpx;
+}
+
+/* 地图大小调节器 */
+.map-resizer {
+  position: absolute;
+  bottom: 16rpx;
+  right: 16rpx;
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  padding: 8rpx 16rpx;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 20rpx;
+  opacity: 0.8;
+}
+
+.map-resizer:active {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.resize-icon {
+  font-size: 22rpx;
+}
+
+.resize-text {
+  font-size: 20rpx;
+  color: #fff;
+}
+
+/* 数据展示区域 */
+.data-display {
+  flex: 1;
+  padding: 30rpx 30rpx 10rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.data-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20rpx;
+  padding: 24rpx;
+  text-align: center;
+  border: 1rpx solid rgba(255, 255, 255, 0.08);
+}
+
+.data-card.primary {
+  background: linear-gradient(135deg, rgba(7, 193, 96, 0.15), rgba(5, 165, 84, 0.1));
+  border: 2rpx solid rgba(7, 193, 96, 0.3);
+  padding: 40rpx;
+}
+
+.data-value {
+  font-size: 56rpx;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.data-card.primary .data-value {
+  font-size: 80rpx;
+}
+
+.data-unit {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 6rpx;
+}
+
+.data-label {
+  display: block;
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 8rpx;
+  text-transform: uppercase;
+  letter-spacing: 2rpx;
+}
+
+.data-row {
+  display: flex;
+  gap: 16rpx;
+}
+
+.data-row .data-card {
+  flex: 1;
+  padding: 20rpx 12rpx;
+}
+
+.data-row .data-card .data-value {
+  font-size: 44rpx;
+}
+
+/* 底部控制按钮 - 已下移避免与右上角按钮重叠 */
+.bottom-controls {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 30rpx 50rpx;
+  /* 增加底部安全区域，避免被手机系统按钮遮挡 */
+  padding-bottom: calc(60rpx + env(safe-area-inset-bottom));
+  margin-top: auto;
+  background: linear-gradient(180deg, rgba(10, 22, 40, 0) 0%, rgba(10, 22, 40, 0.95) 30%);
+}
+
+.control-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100rpx;
+  height: 100rpx;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.control-btn .btn-icon {
+  font-size: 36rpx;
+}
+
+.control-btn .btn-icon-large {
+  font-size: 48rpx;
+}
+
+.control-btn .btn-text {
+  font-size: 20rpx;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 4rpx;
+}
+
+.control-btn.main-btn {
+  width: 140rpx;
+  height: 140rpx;
+  margin-bottom: 20rpx;
+}
+
+.control-btn.main-btn.start {
+  background: linear-gradient(135deg, #07c160, #05a554);
+  box-shadow: 0 10rpx 40rpx rgba(7, 193, 96, 0.4);
+}
+
+.control-btn.main-btn.pause {
+  background: linear-gradient(135deg, #ff9500, #ff6b00);
+  box-shadow: 0 10rpx 40rpx rgba(255, 149, 0, 0.4);
+}
+
+.control-btn.lock, .control-btn.settings {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1rpx solid rgba(255, 255, 255, 0.1);
+}
+
+.control-btn.lock:active, .control-btn.settings:active {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(0.95);
+}
+
+.control-btn.main-btn:active {
+  transform: scale(0.95);
+}
+
+/* 锁屏覆盖层 */
+.lock-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 22, 40, 0.98);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.lock-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lock-icon {
+  font-size: 100rpx;
+  margin-bottom: 30rpx;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.lock-hint {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

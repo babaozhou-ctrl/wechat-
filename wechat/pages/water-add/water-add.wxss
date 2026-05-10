@@ -1,0 +1,200 @@
+/* pages/water-add/water-add.wxss */
+
+.page {
+  height: 100vh;
+  background: #f5f6f8;
+}
+
+.page-content {
+  padding-bottom: 40rpx;
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60rpx 30rpx 20rpx;
+  background: #fff;
+}
+
+.nav-left, .nav-right {
+  width: 80rpx;
+}
+
+.nav-back {
+  font-size: 48rpx;
+  color: #333;
+  font-weight: 300;
+}
+
+.nav-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 饮水量输入 */
+.amount-section {
+  background: #fff;
+  margin: 30rpx;
+  border-radius: 24rpx;
+  padding: 50rpx 40rpx;
+}
+
+.amount-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: 40rpx;
+}
+
+.amount-value {
+  font-size: 100rpx;
+  font-weight: 700;
+  color: #5B8DEF;
+}
+
+.amount-unit {
+  font-size: 32rpx;
+  color: #999;
+  margin-left: 12rpx;
+}
+
+/* 快捷选择 */
+.quick-select {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 40rpx;
+}
+
+.quick-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 16rpx;
+  background: #f5f6f8;
+  border-radius: 16rpx;
+  border: 4rpx solid transparent;
+}
+
+.quick-item:active {
+  background: #E5F4FF;
+  border-color: #5B8DEF;
+}
+
+.quick-icon {
+  font-size: 40rpx;
+  margin-bottom: 8rpx;
+}
+
+.quick-label {
+  font-size: 22rpx;
+  color: #666;
+}
+
+/* 自定义输入 */
+.custom-input {
+  display: flex;
+  align-items: center;
+  background: #f5f6f8;
+  border-radius: 16rpx;
+  padding: 0 20rpx;
+  height: 88rpx;
+}
+
+.input {
+  flex: 1;
+  font-size: 32rpx;
+  height: 100%;
+}
+
+.unit {
+  font-size: 28rpx;
+  color: #999;
+  margin-left: 16rpx;
+}
+
+/* 今日统计 */
+.today-stats {
+  background: #fff;
+  margin: 0 30rpx;
+  border-radius: 24rpx;
+  padding: 30rpx;
+}
+
+.stats-title {
+  font-size: 24rpx;
+  color: #999;
+  text-align: center;
+  margin-bottom: 12rpx;
+}
+
+.stats-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: 16rpx;
+}
+
+.stats-value {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #5B8DEF;
+}
+
+.stats-unit {
+  font-size: 24rpx;
+  color: #999;
+  margin-left: 8rpx;
+}
+
+.stats-progress {
+  height: 12rpx;
+  background: #f0f0f0;
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #5B8DEF 0%, #8FBAF5 100%);
+  border-radius: 6rpx;
+  transition: width 0.3s;
+}
+
+/* 底部保存按钮 */
+.bottom-action {
+  padding: 30rpx;
+  margin-top: 30rpx;
+}
+
+.save-btn {
+  width: 100%;
+  height: 96rpx;
+  background: linear-gradient(135deg, #5B8DEF 0%, #3D6DC7 100%);
+  border-radius: 48rpx;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(91, 141, 239, 0.3);
+}
+
+.save-icon {
+  font-size: 32rpx;
+  color: #fff;
+  margin-right: 12rpx;
+}
+
+.save-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* 安全底部 */
+.safe-bottom {
+  height: env(safe-area-inset-bottom);
+  height: constant(safe-area-inset-bottom);
+}

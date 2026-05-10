@@ -1,0 +1,43 @@
+<scroll-view class="page" scroll-y enhanced shows-scrollbar="{{false}}">
+<view class="page-content">
+  <view class="nav-bar">
+    <view class="nav-left" bindtap="onBack"><text class="nav-back">‹</text></view>
+    <text class="nav-title">步数记录</text>
+    <view class="nav-right"></view>
+  </view>
+  
+  <view class="progress-card">
+    <view class="steps-display">
+      <text class="steps-icon">👟</text>
+      <text class="steps-value">{{todaySteps}}</text>
+      <text class="steps-unit">步</text>
+    </view>
+    <view class="progress-info">
+      <view class="progress-bar"><view class="progress-fill" style="width: {{progress}}%"></view></view>
+      <text class="progress-text">完成 {{progress}}% · 目标 {{targetSteps}} 步</text>
+    </view>
+  </view>
+  
+  <view class="add-section">
+    <view class="section-title">手动记录步数</view>
+    <view class="input-row">
+      <input class="input" type="digit" placeholder="输入步数" value="{{inputSteps}}" bindinput="onInput"/>
+      <button class="add-btn" bindtap="onAdd">添加</button>
+    </view>
+  </view>
+  
+  <view class="history-section">
+    <view class="section-title">今日记录</view>
+    <view class="record-list">
+      <view wx:for="{{records}}" wx:key="id" class="record-item">
+        <text class="record-time">{{item.time}}</text>
+        <text class="record-value">+{{item.steps}} 步</text>
+      </view>
+      <view wx:if="{{records.length === 0}}" class="empty-tip">暂无记录</view>
+    </view>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-bottom"></view>
+</view>
+</scroll-view>

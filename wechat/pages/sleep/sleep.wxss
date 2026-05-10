@@ -1,0 +1,31 @@
+/* pages/sleep/sleep.wxss */
+.page { height: 100vh; background: #f5f6f8; }
+.page-content { padding-bottom: 40rpx; }
+.nav-bar { display: flex; align-items: center; padding: 60rpx 30rpx 20rpx; background: #fff; }
+.nav-left { width: 80rpx; }
+.nav-back { font-size: 48rpx; color: #333; }
+.nav-title { flex: 1; text-align: center; font-size: 32rpx; font-weight: 600; color: #333; }
+.sleep-card { background: linear-gradient(135deg, #B8B8FF 0%, #9090FF 100%); margin: 20rpx 30rpx; border-radius: 24rpx; padding: 50rpx; text-align: center; }
+.sleep-icon { font-size: 80rpx; margin-bottom: 16rpx; }
+.sleep-duration { font-size: 96rpx; font-weight: 700; color: #fff; }
+.sleep-unit { font-size: 32rpx; color: rgba(255,255,255,0.8); margin-left: 8rpx; }
+.sleep-desc { font-size: 26rpx; color: rgba(255,255,255,0.8); margin-top: 8rpx; display: block; }
+.target-section { background: #fff; margin: 20rpx 30rpx; border-radius: 24rpx; padding: 30rpx; }
+.target-info { display: flex; justify-content: space-between; margin-bottom: 16rpx; }
+.target-label { font-size: 26rpx; color: #666; }
+.target-value { font-size: 26rpx; color: #333; font-weight: 500; }
+.progress-bar { height: 12rpx; background: #f0f0f0; border-radius: 6rpx; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(135deg, #B8B8FF, #9090FF); border-radius: 6rpx; transition: width 0.3s; }
+.record-section { background: #fff; margin: 20rpx 30rpx; border-radius: 24rpx; padding: 30rpx; }
+.section-title { font-size: 28rpx; font-weight: 600; color: #333; margin-bottom: 20rpx; }
+.time-inputs { display: flex; gap: 20rpx; margin-bottom: 30rpx; }
+.time-item { flex: 1; }
+.time-label { font-size: 24rpx; color: #666; display: block; margin-bottom: 8rpx; }
+.time-picker { height: 80rpx; background: #f5f6f8; border-radius: 12rpx; line-height: 80rpx; text-align: center; font-size: 28rpx; color: #333; }
+/* 底部保存按钮 */
+.bottom-action { padding: 30rpx; margin-top: 20rpx; }
+.save-btn { width: 100%; height: 96rpx; background: linear-gradient(135deg, #B8B8FF 0%, #9090FF 100%); border-radius: 48rpx; border: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 8rpx 24rpx rgba(144, 144, 255, 0.3); }
+.save-icon { font-size: 32rpx; color: #fff; margin-right: 12rpx; }
+.save-text { font-size: 32rpx; font-weight: 600; color: #fff; }
+/* 安全底部 */
+.safe-bottom { height: env(safe-area-inset-bottom); height: constant(safe-area-inset-bottom); }

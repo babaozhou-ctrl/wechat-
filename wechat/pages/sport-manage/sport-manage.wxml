@@ -1,0 +1,84 @@
+<scroll-view class="page" scroll-y enhanced shows-scrollbar="{{false}}">
+<view class="page-content">
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-left" bindtap="onBack">
+      <text class="back-icon">‹</text>
+      <text class="back-text">返回</text>
+    </view>
+    <view class="nav-title">管理运动</view>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 现有运动类型 -->
+  <view class="section">
+    <view class="section-title">我的运动</view>
+    <view class="sport-list">
+      <view 
+        wx:for="{{sportTypes}}" 
+        wx:key="key"
+        class="sport-item"
+      >
+        <view class="sport-left">
+          <text class="sport-icon">{{item.icon}}</text>
+          <view class="sport-info">
+            <text class="sport-name">{{item.name}}</text>
+            <text class="sport-desc">每公里消耗 {{item.caloriesPerKm}} kcal</text>
+          </view>
+        </view>
+        <view class="sport-actions">
+          <text class="action-btn edit" bindtap="onEditSport" data-type="{{item.key}}">编辑</text>
+          <text class="action-btn delete" bindtap="onDeleteSport" data-type="{{item.key}}" wx:if="{{!item.isDefault}}">删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加自定义运动 -->
+  <view class="section">
+    <view class="section-title">添加自定义运动</view>
+    <view class="add-form">
+      <view class="form-item">
+        <text class="form-label">运动名称</text>
+        <input 
+          class="form-input" 
+          placeholder="例如：游泳、瑜伽"
+          value="{{newSport.name}}"
+          bindinput="onNameInput"
+        />
+      </view>
+      
+      <view class="form-item">
+        <text class="form-label">选择图标</text>
+        <view class="icon-grid">
+          <view 
+            wx:for="{{iconList}}" 
+            wx:key="index"
+            class="icon-item {{newSport.icon === item ? 'selected' : ''}}"
+            bindtap="onIconSelect"
+            data-icon="{{item}}"
+          >
+            <text class="icon-emoji">{{item}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="form-item">
+        <text class="form-label">每公里消耗 (kcal)</text>
+        <input 
+          class="form-input" 
+          type="digit"
+          placeholder="例如：60"
+          value="{{newSport.calories}}"
+          bindinput="onCaloriesInput"
+        />
+      </view>
+      
+      <button class="add-btn" type="primary" bindtap="onAddSport">+ 添加运动</button>
+    </view>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-bottom"></view>
+</view>
+</scroll-view>

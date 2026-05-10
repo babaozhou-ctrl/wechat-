@@ -1,0 +1,74 @@
+<scroll-view class="page" scroll-y enhanced shows-scrollbar="{{false}}">
+<view class="page-content">
+  <view class="nav-bar">
+    <view class="nav-left" bindtap="onBack">
+      <text class="nav-back">‹</text>
+    </view>
+    <text class="nav-title">添加饮水</text>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 饮水量输入 -->
+  <view class="amount-section">
+    <view class="amount-display">
+      <text class="amount-value">{{amount || 0}}</text>
+      <text class="amount-unit">ml</text>
+    </view>
+    
+    <!-- 快捷选择 -->
+    <view class="quick-select">
+      <view class="quick-item" bindtap="onQuickAdd" data-amount="100">
+        <text class="quick-icon">🥛</text>
+        <text class="quick-label">100ml</text>
+      </view>
+      <view class="quick-item" bindtap="onQuickAdd" data-amount="200">
+        <text class="quick-icon">🥤</text>
+        <text class="quick-label">200ml</text>
+      </view>
+      <view class="quick-item" bindtap="onQuickAdd" data-amount="300">
+        <text class="quick-icon">🫗</text>
+        <text class="quick-label">300ml</text>
+      </view>
+      <view class="quick-item" bindtap="onQuickAdd" data-amount="500">
+        <text class="quick-icon">🍶</text>
+        <text class="quick-label">500ml</text>
+      </view>
+    </view>
+    
+    <!-- 自定义输入 -->
+    <view class="custom-input">
+      <input 
+        type="digit"
+        class="input"
+        placeholder="输入饮水量"
+        value="{{amount}}"
+        bindinput="onInput"
+      />
+      <text class="unit">ml</text>
+    </view>
+  </view>
+
+  <!-- 今日饮水统计 -->
+  <view class="today-stats" wx:if="{{todayTotal > 0}}">
+    <view class="stats-title">今日已饮</view>
+    <view class="stats-display">
+      <text class="stats-value">{{todayTotal}}</text>
+      <text class="stats-unit">/ {{target}} ml</text>
+    </view>
+    <view class="stats-progress">
+      <view class="progress-fill" style="width: {{todayPercent}}%"></view>
+    </view>
+  </view>
+
+  <!-- 底部保存按钮 -->
+  <view class="bottom-action">
+    <button class="save-btn" bindtap="onSave">
+      <text class="save-icon">✓</text>
+      <text class="save-text">添加饮水</text>
+    </button>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-bottom"></view>
+</view>
+</scroll-view>

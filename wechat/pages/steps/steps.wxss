@@ -1,0 +1,29 @@
+/* pages/steps/steps.wxss */
+.page { height: 100vh; background: #f5f6f8; }
+.page-content { padding-bottom: 40rpx; }
+.nav-bar { display: flex; align-items: center; padding: 60rpx 30rpx 20rpx; background: #fff; }
+.nav-left { width: 80rpx; }
+.nav-back { font-size: 48rpx; color: #333; }
+.nav-title { flex: 1; text-align: center; font-size: 32rpx; font-weight: 600; color: #333; }
+.progress-card { background: linear-gradient(135deg, #5B8DEF 0%, #4A7BE0 100%); margin: 20rpx 30rpx; border-radius: 24rpx; padding: 50rpx 30rpx; text-align: center; }
+.steps-display { display: flex; align-items: baseline; justify-content: center; }
+.steps-icon { font-size: 48rpx; margin-right: 16rpx; }
+.steps-value { font-size: 80rpx; font-weight: 700; color: #fff; }
+.steps-unit { font-size: 28rpx; color: rgba(255,255,255,0.8); margin-left: 8rpx; }
+.progress-info { margin-top: 30rpx; }
+.progress-bar { height: 12rpx; background: rgba(255,255,255,0.3); border-radius: 6rpx; overflow: hidden; }
+.progress-fill { height: 100%; background: #fff; border-radius: 6rpx; transition: width 0.3s; }
+.progress-text { font-size: 24rpx; color: rgba(255,255,255,0.8); margin-top: 12rpx; }
+.add-section { background: #fff; margin: 20rpx 30rpx; border-radius: 24rpx; padding: 30rpx; }
+.section-title { font-size: 28rpx; font-weight: 600; color: #333; margin-bottom: 20rpx; }
+.input-row { display: flex; gap: 20rpx; }
+.input { flex: 1; height: 88rpx; background: #f5f6f8; border-radius: 16rpx; padding: 0 24rpx; font-size: 28rpx; }
+.add-btn { width: 180rpx; height: 88rpx; line-height: 88rpx; background: linear-gradient(135deg, #5B8DEF, #4A7BE0); color: #fff; font-size: 28rpx; border-radius: 16rpx; border: none; }
+.history-section { background: #fff; margin: 20rpx 30rpx; border-radius: 24rpx; padding: 30rpx; }
+.record-list { margin-top: 10rpx; }
+.record-item { display: flex; justify-content: space-between; padding: 20rpx 0; border-bottom: 1rpx solid #f0f0f0; }
+.record-item:last-child { border-bottom: none; }
+.record-time { font-size: 26rpx; color: #999; }
+.record-value { font-size: 26rpx; color: #5B8DEF; font-weight: 500; }
+.empty-tip { text-align: center; color: #999; font-size: 26rpx; padding: 40rpx 0; }
+.safe-bottom { height: env(safe-area-inset-bottom); height: constant(safe-area-inset-bottom); }

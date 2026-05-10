@@ -1,0 +1,53 @@
+<scroll-view class="page" scroll-y enhanced shows-scrollbar="{{false}}">
+<view class="page-content">
+  <view class="nav-bar">
+    <view class="nav-left" bindtap="onBack"><text class="nav-back">‹</text></view>
+    <text class="nav-title">睡眠记录</text>
+    <view class="nav-right"></view>
+  </view>
+  
+  <view class="sleep-card">
+    <view class="sleep-icon">😴</view>
+    <text class="sleep-duration">{{todaySleep}}</text>
+    <text class="sleep-unit">小时</text>
+    <text class="sleep-desc">今日睡眠时长</text>
+  </view>
+  
+  <view class="target-section">
+    <view class="target-info">
+      <text class="target-label">目标睡眠</text>
+      <text class="target-value">{{targetSleep}} 小时</text>
+    </view>
+    <view class="progress-bar"><view class="progress-fill" style="width: {{progress}}%"></view></view>
+  </view>
+  
+  <view class="record-section">
+    <view class="section-title">记录睡眠</view>
+    <view class="time-inputs">
+      <view class="time-item">
+        <text class="time-label">入睡时间</text>
+        <picker mode="time" value="{{sleepTime}}" bindchange="onSleepTimeChange">
+          <view class="time-picker">{{sleepTime}}</view>
+        </picker>
+      </view>
+      <view class="time-item">
+        <text class="time-label">起床时间</text>
+        <picker mode="time" value="{{wakeTime}}" bindchange="onWakeTimeChange">
+          <view class="time-picker">{{wakeTime}}</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部保存按钮 -->
+  <view class="bottom-action">
+    <button class="save-btn" bindtap="onSave">
+      <text class="save-icon">✓</text>
+      <text class="save-text">保存记录</text>
+    </button>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-bottom"></view>
+</view>
+</scroll-view>

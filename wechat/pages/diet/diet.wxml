@@ -1,0 +1,272 @@
+<scroll-view class="page" scroll-y enhanced shows-scrollbar="{{false}}">
+<view class="page-content">
+  <!-- 顶部导航 -->
+  <view class="nav-bar">
+    <view class="nav-left" bindtap="onBack">
+      <text class="nav-back">‹</text>
+    </view>
+    <text class="nav-title">饮食记录</text>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 日期选择 -->
+  <view class="date-selector">
+    <view class="date-nav" bindtap="onPrevDay">
+      <text class="nav-arrow">‹</text>
+    </view>
+    <view class="date-display">
+      <text class="date-text">{{displayDate}}</text>
+      <text class="date-week">{{weekDay}}</text>
+    </view>
+    <view class="date-nav" bindtap="onNextDay">
+      <text class="nav-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 卡路里概览 -->
+  <view class="calorie-overview">
+    <view class="calorie-ring">
+      <view class="ring-bg"></view>
+      <view class="ring-fill" style="transform: rotate({{calorieAngle}}deg)"></view>
+      <view class="ring-content">
+        <text class="ring-value">{{totalCalories}}</text>
+        <text class="ring-unit">千卡</text>
+      </view>
+    </view>
+    <view class="calorie-info">
+      <view class="info-row">
+        <text class="info-label">摄入</text>
+        <text class="info-value">{{totalCalories}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">目标</text>
+        <text class="info-value target">{{targetCalories}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">剩余</text>
+        <text class="info-value {{remaining < 0 ? 'over' : ''}}">{{remaining}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 营养成分 -->
+  <view class="nutrition-cards">
+    <view class="nutrition-card">
+      <view class="nutrition-ring protein">
+        <view class="ring-fill" style="transform: rotate({{proteinAngle}}deg)"></view>
+      </view>
+      <text class="nutrition-value">{{protein}}g</text>
+      <text class="nutrition-label">蛋白质</text>
+    </view>
+    <view class="nutrition-card">
+      <view class="nutrition-ring carbs">
+        <view class="ring-fill" style="transform: rotate({{carbsAngle}}deg)"></view>
+      </view>
+      <text class="nutrition-value">{{carbs}}g</text>
+      <text class="nutrition-label">碳水</text>
+    </view>
+    <view class="nutrition-card">
+      <view class="nutrition-ring fat">
+        <view class="ring-fill" style="transform: rotate({{fatAngle}}deg)"></view>
+      </view>
+      <text class="nutrition-value">{{fat}}g</text>
+      <text class="nutrition-label">脂肪</text>
+    </view>
+  </view>
+
+  <!-- 餐食记录 -->
+  <view class="meal-section">
+    <!-- 早餐 -->
+    <view class="meal-card">
+      <view class="meal-header" bindtap="onToggleMeal" data-meal="breakfast">
+        <view class="meal-info">
+          <text class="meal-icon">🌅</text>
+          <view class="meal-text">
+            <text class="meal-name">早餐</text>
+            <text class="meal-cal">{{breakfastCal}} 千卡</text>
+          </view>
+        </view>
+        <text class="meal-arrow {{mealExpanded.breakfast ? 'up' : ''}}">›</text>
+      </view>
+      <view class="meal-items" wx:if="{{mealExpanded.breakfast}}">
+        <view wx:for="{{breakfastItems}}" wx:key="_id" class="meal-item">
+          <view class="item-content">
+            <view class="item-left">
+              <image 
+                wx:if="{{item.customImage}}" 
+                class="item-image" 
+                src="{{item.customImage}}" 
+                mode="aspectFill"
+                bindtap="onPreviewImage"
+                data-src="{{item.customImage}}"
+              />
+              <view wx:else class="item-icon-wrapper">
+                <text class="item-icon">{{item.icon}}</text>
+              </view>
+              <view class="item-details">
+                <text class="item-name">{{item.name}}</text>
+                <text class="item-portion">{{item.portion}}g · {{item.time}}</text>
+              </view>
+            </view>
+            <view class="item-right">
+              <text class="item-cal">{{item.calories}}千卡</text>
+              <text wx:if="{{item.remark}}" class="item-remark">{{item.remark}}</text>
+              <text class="item-delete" catchtap="onDeleteFood" data-id="{{item._id || item.id}}" data-food="{{item}}">×</text>
+            </view>
+          </view>
+        </view>
+        <view class="add-item" bindtap="onAddFood" data-meal="breakfast">
+          <text class="add-icon">+</text>
+          <text>添加早餐</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 午餐 -->
+    <view class="meal-card">
+      <view class="meal-header" bindtap="onToggleMeal" data-meal="lunch">
+        <view class="meal-info">
+          <text class="meal-icon">☀️</text>
+          <view class="meal-text">
+            <text class="meal-name">午餐</text>
+            <text class="meal-cal">{{lunchCal}} 千卡</text>
+          </view>
+        </view>
+        <text class="meal-arrow {{mealExpanded.lunch ? 'up' : ''}}">›</text>
+      </view>
+      <view class="meal-items" wx:if="{{mealExpanded.lunch}}">
+        <view wx:for="{{lunchItems}}" wx:key="_id" class="meal-item">
+          <view class="item-content">
+            <view class="item-left">
+              <image 
+                wx:if="{{item.customImage}}" 
+                class="item-image" 
+                src="{{item.customImage}}" 
+                mode="aspectFill"
+                bindtap="onPreviewImage"
+                data-src="{{item.customImage}}"
+              />
+              <view wx:else class="item-icon-wrapper">
+                <text class="item-icon">{{item.icon}}</text>
+              </view>
+              <view class="item-details">
+                <text class="item-name">{{item.name}}</text>
+                <text class="item-portion">{{item.portion}}g · {{item.time}}</text>
+              </view>
+            </view>
+            <view class="item-right">
+              <text class="item-cal">{{item.calories}}千卡</text>
+              <text wx:if="{{item.remark}}" class="item-remark">{{item.remark}}</text>
+              <text class="item-delete" catchtap="onDeleteFood" data-id="{{item._id || item.id}}" data-food="{{item}}">×</text>
+            </view>
+          </view>
+        </view>
+        <view class="add-item" bindtap="onAddFood" data-meal="lunch">
+          <text class="add-icon">+</text>
+          <text>添加午餐</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 晚餐 -->
+    <view class="meal-card">
+      <view class="meal-header" bindtap="onToggleMeal" data-meal="dinner">
+        <view class="meal-info">
+          <text class="meal-icon">🌙</text>
+          <view class="meal-text">
+            <text class="meal-name">晚餐</text>
+            <text class="meal-cal">{{dinnerCal}} 千卡</text>
+          </view>
+        </view>
+        <text class="meal-arrow {{mealExpanded.dinner ? 'up' : ''}}">›</text>
+      </view>
+      <view class="meal-items" wx:if="{{mealExpanded.dinner}}">
+        <view wx:for="{{dinnerItems}}" wx:key="_id" class="meal-item">
+          <view class="item-content">
+            <view class="item-left">
+              <image 
+                wx:if="{{item.customImage}}" 
+                class="item-image" 
+                src="{{item.customImage}}" 
+                mode="aspectFill"
+                bindtap="onPreviewImage"
+                data-src="{{item.customImage}}"
+              />
+              <view wx:else class="item-icon-wrapper">
+                <text class="item-icon">{{item.icon}}</text>
+              </view>
+              <view class="item-details">
+                <text class="item-name">{{item.name}}</text>
+                <text class="item-portion">{{item.portion}}g · {{item.time}}</text>
+              </view>
+            </view>
+            <view class="item-right">
+              <text class="item-cal">{{item.calories}}千卡</text>
+              <text wx:if="{{item.remark}}" class="item-remark">{{item.remark}}</text>
+              <text class="item-delete" catchtap="onDeleteFood" data-id="{{item._id || item.id}}" data-food="{{item}}">×</text>
+            </view>
+          </view>
+        </view>
+        <view class="add-item" bindtap="onAddFood" data-meal="dinner">
+          <text class="add-icon">+</text>
+          <text>添加晚餐</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加餐 -->
+    <view class="meal-card">
+      <view class="meal-header" bindtap="onToggleMeal" data-meal="snack">
+        <view class="meal-info">
+          <text class="meal-icon">🍪</text>
+          <view class="meal-text">
+            <text class="meal-name">加餐</text>
+            <text class="meal-cal">{{snackCal}} 千卡</text>
+          </view>
+        </view>
+        <text class="meal-arrow {{mealExpanded.snack ? 'up' : ''}}">›</text>
+      </view>
+      <view class="meal-items" wx:if="{{mealExpanded.snack}}">
+        <view wx:for="{{snackItems}}" wx:key="_id" class="meal-item">
+          <view class="item-content">
+            <view class="item-left">
+              <image 
+                wx:if="{{item.customImage}}" 
+                class="item-image" 
+                src="{{item.customImage}}" 
+                mode="aspectFill"
+                bindtap="onPreviewImage"
+                data-src="{{item.customImage}}"
+              />
+              <view wx:else class="item-icon-wrapper">
+                <text class="item-icon">{{item.icon}}</text>
+              </view>
+              <view class="item-details">
+                <text class="item-name">{{item.name}}</text>
+                <text class="item-portion">{{item.portion}}g · {{item.time}}</text>
+              </view>
+            </view>
+            <view class="item-right">
+              <text class="item-cal">{{item.calories}}千卡</text>
+              <text wx:if="{{item.remark}}" class="item-remark">{{item.remark}}</text>
+              <text class="item-delete" catchtap="onDeleteFood" data-id="{{item._id || item.id}}" data-food="{{item}}">×</text>
+            </view>
+          </view>
+        </view>
+        <view class="add-item" bindtap="onAddFood" data-meal="snack">
+          <text class="add-icon">+</text>
+          <text>添加加餐</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-bottom"></view>
+
+  <!-- 右下角历史按钮 -->
+  <view class="float-history-btn" bindtap="onViewHistory">
+    <text class="float-btn-icon">📊</text>
+  </view>
+</view>
+</scroll-view>

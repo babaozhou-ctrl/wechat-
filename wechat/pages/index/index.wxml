@@ -1,0 +1,224 @@
+<scroll-view class="page" scroll-y enhanced shows-scrollbar="{{false}}">
+<view class="page-content">
+  <!-- 顶部欢迎区域 -->
+  <view class="header">
+    <view class="user-info">
+      <text class="greeting">{{greeting}}</text>
+      <text class="user-name">{{userNickname}}</text>
+      <text class="date">{{currentDate}}</text>
+    </view>
+  </view>
+
+  <!-- 今日健康数据卡片 -->
+  <view class="health-cards">
+    <!-- 热量卡片 -->
+    <view class="health-card calories-card" bindtap="onGoToDiet">
+      <view class="card-header">
+        <text class="card-icon">🔥</text>
+        <text class="card-title">今日摄入</text>
+      </view>
+      <view class="card-value">
+        <text class="value-number">{{todayCalories}}</text>
+        <text class="value-unit">千卡</text>
+      </view>
+      <view class="card-progress">
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{calorieProgress}}%"></view>
+        </view>
+        <text class="progress-text">目标 {{targetCalories}} 千卡</text>
+      </view>
+    </view>
+
+    <!-- 步数卡片 -->
+    <view class="health-card steps-card" bindtap="onGoToSteps">
+      <view class="card-header">
+        <text class="card-icon">👟</text>
+        <text class="card-title">今日步数</text>
+      </view>
+      <view class="card-value">
+        <text class="value-number">{{todaySteps}}</text>
+        <text class="value-unit">步</text>
+      </view>
+      <view class="card-progress">
+        <view class="progress-bar">
+          <view class="progress-fill steps" style="width: {{stepsProgress}}%"></view>
+        </view>
+        <text class="progress-text">目标 {{targetSteps}} 步</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 第二行卡片 -->
+  <view class="health-cards second-row">
+    <!-- 体重卡片 -->
+    <view class="health-card mini-card weight-card" bindtap="onGoToWeight">
+      <view class="card-header">
+        <text class="card-icon">⚖️</text>
+        <text class="card-title">体重</text>
+      </view>
+      <view class="card-value mini-value">
+        <text class="value-number">{{currentWeight}}</text>
+        <text class="value-unit">kg</text>
+      </view>
+      <text class="card-change {{weightChange >= 0 ? 'up' : 'down'}}">
+        {{weightChange >= 0 ? '↑' : '↓'}} {{weightChangeAbs}} kg
+      </text>
+    </view>
+
+    <!-- 饮水卡片 -->
+    <view class="health-card mini-card water-card" bindtap="onGoToWater">
+      <view class="card-header">
+        <text class="card-icon">💧</text>
+        <text class="card-title">饮水</text>
+      </view>
+      <view class="card-value mini-value">
+        <text class="value-number">{{todayWater}}</text>
+        <text class="value-unit">ml</text>
+      </view>
+      <text class="card-change">目标 {{targetWater}} ml</text>
+    </view>
+
+    <!-- 睡眠卡片 -->
+    <view class="health-card mini-card sleep-card" bindtap="onGoToSleep">
+      <view class="card-header">
+        <text class="card-icon">😴</text>
+        <text class="card-title">睡眠</text>
+      </view>
+      <view class="card-value mini-value">
+        <text class="value-number">{{todaySleep}}</text>
+        <text class="value-unit">小时</text>
+      </view>
+      <text class="card-change">目标 {{targetSleep}} 小时</text>
+    </view>
+  </view>
+
+  <!-- 快速记录区域 -->
+  <view class="quick-actions">
+    <text class="section-title">快速记录</text>
+    <view class="action-grid">
+      <view class="action-item" bindtap="onQuickDiet">
+        <view class="action-icon diet-icon">
+          <text>🍽️</text>
+        </view>
+        <text class="action-text">饮食</text>
+      </view>
+      <view class="action-item" bindtap="onQuickWater">
+        <view class="action-icon water-icon">
+          <text>💧</text>
+        </view>
+        <text class="action-text">饮水</text>
+      </view>
+      <view class="action-item" bindtap="onQuickWeight">
+        <view class="action-icon weight-icon">
+          <text>⚖️</text>
+        </view>
+        <text class="action-text">体重</text>
+      </view>
+      <view class="action-item" bindtap="onQuickSport">
+        <view class="action-icon sport-icon">
+          <text>🏃</text>
+        </view>
+        <text class="action-text">运动</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 今日饮食记录 -->
+  <view class="meal-section">
+    <view class="section-header">
+      <text class="section-title">今日饮食</text>
+      <text class="section-more" bindtap="onGoToDiet">查看全部 ›</text>
+    </view>
+    <view class="meal-tabs">
+      <view 
+        class="meal-tab {{currentMeal === 'breakfast' ? 'active' : ''}}"
+        bindtap="onSelectMeal"
+        data-meal="breakfast"
+      >
+        <text class="meal-icon">🌅</text>
+        <text class="meal-name">早餐</text>
+        <text class="meal-cal">{{breakfastCal}}千卡</text>
+      </view>
+      <view 
+        class="meal-tab {{currentMeal === 'lunch' ? 'active' : ''}}"
+        bindtap="onSelectMeal"
+        data-meal="lunch"
+      >
+        <text class="meal-icon">☀️</text>
+        <text class="meal-name">午餐</text>
+        <text class="meal-cal">{{lunchCal}}千卡</text>
+      </view>
+      <view 
+        class="meal-tab {{currentMeal === 'dinner' ? 'active' : ''}}"
+        bindtap="onSelectMeal"
+        data-meal="dinner"
+      >
+        <text class="meal-icon">🌙</text>
+        <text class="meal-name">晚餐</text>
+        <text class="meal-cal">{{dinnerCal}}千卡</text>
+      </view>
+      <view 
+        class="meal-tab {{currentMeal === 'snack' ? 'active' : ''}}"
+        bindtap="onSelectMeal"
+        data-meal="snack"
+      >
+        <text class="meal-icon">🍪</text>
+        <text class="meal-name">加餐</text>
+        <text class="meal-cal">{{snackCal}}千卡</text>
+      </view>
+    </view>
+    <view class="meal-items">
+      <view 
+        wx:for="{{currentMealItems}}" 
+        wx:key="id"
+        class="meal-item"
+      >
+        <view class="meal-item-left">
+          <text class="meal-item-icon">{{item.icon || '🍽️'}}</text>
+          <view class="meal-item-info">
+            <text class="meal-item-name">{{item.name}}</text>
+            <text class="meal-item-time">{{item.time}}</text>
+          </view>
+        </view>
+        <text class="meal-item-cal">{{item.calories}}千卡</text>
+      </view>
+      <view class="meal-add-btn" bindtap="onAddMeal">
+        <text class="add-icon">+</text>
+        <text class="add-text">添加{{mealNameMap[currentMeal]}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 运动快捷入口 -->
+  <view class="sport-section">
+    <view class="section-header">
+      <text class="section-title">运动记录</text>
+      <text class="section-more" bindtap="onManageSport">管理 ›</text>
+    </view>
+    <view class="sport-list">
+      <view 
+        wx:for="{{sportTypes}}" 
+        wx:key="key"
+        class="sport-item"
+        bindtap="onSelectSport"
+        data-type="{{item.key}}"
+      >
+        <text class="sport-icon">{{item.icon}}</text>
+        <text class="sport-name">{{item.name}}</text>
+        <text class="sport-arrow">›</text>
+      </view>
+    </view>
+    <button class="start-sport-btn" bindtap="onStartSport" disabled="{{!selectedSport}}">
+      {{selectedSport ? '开始运动' : '选择运动类型'}}
+    </button>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-bottom"></view>
+
+  <!-- 右下角用户悬浮按钮 -->
+  <view class="float-profile-btn" bindtap="onProfile">
+    <text class="float-profile-icon">{{userAvatar}}</text>
+  </view>
+</view>
+</scroll-view>

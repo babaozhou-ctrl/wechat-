@@ -1,0 +1,103 @@
+<scroll-view class="page" scroll-y enhanced shows-scrollbar="{{false}}">
+<view class="page-content">
+  <!-- 顶部导航 -->
+  <view class="nav-bar">
+    <view class="nav-left" bindtap="onBack">
+      <text class="nav-back">‹</text>
+    </view>
+    <text class="nav-title">记录体重</text>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 体重输入 -->
+  <view class="weight-input-section">
+    <view class="weight-display">
+      <text class="weight-value">{{weight}}</text>
+      <text class="weight-unit">kg</text>
+    </view>
+    <slider 
+      class="weight-slider"
+      min="30" 
+      max="200" 
+      step="0.1"
+      value="{{weight}}"
+      block-size="28"
+      bindchange="onWeightChange"
+      activeColor="#FF8585"
+      backgroundColor="#f0f0f0"
+    />
+    <view class="weight-range">
+      <text>30kg</text>
+      <text>200kg</text>
+    </view>
+  </view>
+
+  <!-- 记录时间 -->
+  <view class="time-section">
+    <view class="section-title">记录时间</view>
+    <view class="time-options">
+      <view 
+        class="time-option {{timeType === 'morning' ? 'active' : ''}}"
+        bindtap="onSelectTime"
+        data-type="morning"
+      >
+        <text class="time-icon">🌅</text>
+        <text class="time-text">早起空腹</text>
+      </view>
+      <view 
+        class="time-option {{timeType === 'noon' ? 'active' : ''}}"
+        bindtap="onSelectTime"
+        data-type="noon"
+      >
+        <text class="time-icon">☀️</text>
+        <text class="time-text">中午</text>
+      </view>
+      <view 
+        class="time-option {{timeType === 'evening' ? 'active' : ''}}"
+        bindtap="onSelectTime"
+        data-type="evening"
+      >
+        <text class="time-icon">🌙</text>
+        <text class="time-text">晚上</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="note-section">
+    <view class="section-title">备注 (可选)</view>
+    <textarea 
+      class="note-input"
+      placeholder="添加备注..."
+      value="{{note}}"
+      bindinput="onNoteInput"
+      maxlength="100"
+    />
+  </view>
+
+  <!-- 历史对比 -->
+  <view class="compare-section" wx:if="{{lastRecord}}">
+    <view class="section-title">与上次对比</view>
+    <view class="compare-card">
+      <text class="compare-icon">📊</text>
+      <view class="compare-info">
+        <text class="compare-last">上次: {{lastRecord.weight}} kg ({{lastRecord.date}})</text>
+        <text class="compare-change {{compareDiff < 0 ? 'down' : 'up'}}">
+          {{compareDiff < 0 ? '↓' : '↑'}} {{Math.abs(compareDiff)}} kg
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部保存按钮 -->
+  <view class="bottom-action">
+    <button class="save-btn" bindtap="onSave">
+      <text class="save-icon">✓</text>
+      <text class="save-text">保存记录</text>
+    </button>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-bottom"></view>
+</view>
+</scroll-view>

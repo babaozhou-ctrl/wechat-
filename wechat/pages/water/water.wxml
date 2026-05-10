@@ -1,0 +1,108 @@
+<scroll-view class="page" scroll-y enhanced shows-scrollbar="{{false}}">
+<view class="page-content">
+  <!-- 顶部导航 -->
+  <view class="nav-bar">
+    <view class="nav-left" bindtap="onBack">
+      <text class="nav-back">‹</text>
+    </view>
+    <text class="nav-title">饮水记录</text>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 饮水进度 -->
+  <view class="progress-section">
+    <view class="water-cup">
+      <view class="cup-fill" style="height: {{fillHeight}}%"></view>
+      <view class="cup-content">
+        <text class="cup-icon">💧</text>
+        <text class="cup-value">{{currentAmount}}</text>
+        <text class="cup-unit">ml</text>
+      </view>
+    </view>
+    <view class="progress-info">
+      <text class="progress-text">今日已饮 {{currentAmount}} / {{targetAmount}} ml</text>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{progress}}%"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷添加 -->
+  <view class="quick-add-section">
+    <text class="section-title">快速添加</text>
+    <view class="quick-buttons">
+      <view class="quick-btn" bindtap="onAddWater" data-amount="100">
+        <text class="btn-value">100</text>
+        <text class="btn-unit">ml</text>
+      </view>
+      <view class="quick-btn" bindtap="onAddWater" data-amount="200">
+        <text class="btn-value">200</text>
+        <text class="btn-unit">ml</text>
+      </view>
+      <view class="quick-btn primary" bindtap="onAddWater" data-amount="250">
+        <text class="btn-value">250</text>
+        <text class="btn-unit">ml</text>
+      </view>
+      <view class="quick-btn" bindtap="onAddWater" data-amount="300">
+        <text class="btn-value">300</text>
+        <text class="btn-unit">ml</text>
+      </view>
+      <view class="quick-btn" bindtap="onAddWater" data-amount="500">
+        <text class="btn-value">500</text>
+        <text class="btn-unit">ml</text>
+      </view>
+      <view class="quick-btn custom" bindtap="onCustomAdd">
+        <text class="btn-value">+</text>
+        <text class="btn-unit">自定义</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 饮水提醒 -->
+  <view class="reminder-section">
+    <view class="reminder-toggle">
+      <text class="reminder-title">定时提醒</text>
+      <switch 
+        checked="{{reminderEnabled}}"
+        bindchange="onToggleReminder"
+        color="#5BA8D8"
+      />
+    </view>
+    <view class="reminder-settings" wx:if="{{reminderEnabled}}">
+      <text class="reminder-desc">每 {{reminderInterval}} 小时提醒一次</text>
+      <slider 
+        class="reminder-slider"
+        min="1" 
+        max="4" 
+        step="1"
+        value="{{reminderInterval}}"
+        bindchange="onReminderChange"
+        activeColor="#5BA8D8"
+      />
+    </view>
+  </view>
+
+  <!-- 今日记录 -->
+  <view class="record-section">
+    <text class="section-title">今日记录</text>
+    <view class="record-list">
+      <view wx:for="{{todayRecords}}" wx:key="id" class="record-item">
+        <view class="record-time">{{item.time}}</view>
+        <view class="record-amount">
+          <text class="amount-icon">💧</text>
+          <text class="amount-value">{{item.amount}} ml</text>
+        </view>
+        <view class="record-delete" catchtap="onDeleteRecord" data-id="{{item.id}}">×</view>
+      </view>
+      <view class="no-record" wx:if="{{todayRecords.length === 0}}">
+        <text class="no-record-icon">💧</text>
+        <text class="no-record-text">还没有饮水记录</text>
+        <text class="no-record-hint">点击上方按钮添加</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-bottom"></view>
+</view>
+</scroll-view>

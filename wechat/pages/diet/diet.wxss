@@ -1,0 +1,435 @@
+/* pages/diet/diet.wxss - 简洁风格饮食记录 */
+
+.page {
+  height: 100vh;
+  background: #f5f5f5;
+}
+
+.page-content {
+  padding-bottom: 40rpx;
+}
+
+/* 导航栏 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50rpx 30rpx 20rpx;
+  background: #fff;
+}
+
+.nav-left, .nav-right {
+  width: 80rpx;
+}
+
+.nav-back {
+  font-size: 44rpx;
+  color: #333;
+  font-weight: 300;
+}
+
+.nav-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 日期选择 */
+.date-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 30rpx;
+  background: #fff;
+  margin-bottom: 20rpx;
+}
+
+.date-nav {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-arrow {
+  font-size: 36rpx;
+  color: #5B8DEF;
+  font-weight: bold;
+}
+
+.date-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.date-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.date-week {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+/* 卡路里概览 */
+.calorie-overview {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  margin: 0 30rpx 20rpx;
+  border-radius: 16rpx;
+  padding: 30rpx;
+}
+
+.calorie-ring {
+  position: relative;
+  width: 160rpx;
+  height: 160rpx;
+  margin-right: 30rpx;
+}
+
+.ring-bg {
+  position: absolute;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  border: 16rpx solid #f0f0f0;
+  box-sizing: border-box;
+}
+
+.ring-fill {
+  position: absolute;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  border: 16rpx solid transparent;
+  border-top-color: #FF6B35;
+  box-sizing: border-box;
+}
+
+.ring-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ring-value {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #FF6B35;
+}
+
+.ring-unit {
+  font-size: 20rpx;
+  color: #999;
+}
+
+.calorie-info {
+  flex: 1;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10rpx 0;
+}
+
+.info-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.info-value {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.info-value.target {
+  color: #5B8DEF;
+}
+
+.info-value.over {
+  color: #FF6B35;
+}
+
+/* 营养成分 */
+.nutrition-cards {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.nutrition-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  margin: 0 8rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nutrition-ring {
+  position: relative;
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 12rpx;
+}
+
+.nutrition-ring .ring-fill {
+  width: 100rpx;
+  height: 100rpx;
+  border-width: 10rpx;
+}
+
+.nutrition-ring.protein .ring-fill {
+  border-top-color: #FF6B6B;
+  border-right-color: #FF6B6B;
+}
+
+.nutrition-ring.carbs .ring-fill {
+  border-top-color: #FFD43B;
+  border-right-color: #FFD43B;
+}
+
+.nutrition-ring.fat .ring-fill {
+  border-top-color: #74C0FC;
+  border-right-color: #74C0FC;
+}
+
+.nutrition-value {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #333;
+}
+
+.nutrition-label {
+  font-size: 20rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+/* 餐食记录 */
+.meal-section {
+  padding: 0 30rpx;
+}
+
+.meal-card {
+  background: #fff;
+  border-radius: 16rpx;
+  margin-bottom: 16rpx;
+  overflow: hidden;
+}
+
+.meal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 24rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.meal-info {
+  display: flex;
+  align-items: center;
+}
+
+.meal-icon {
+  font-size: 36rpx;
+  margin-right: 14rpx;
+}
+
+.meal-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.meal-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.meal-cal {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.meal-arrow {
+  font-size: 32rpx;
+  color: #ccc;
+  transition: transform 0.2s;
+}
+
+.meal-arrow.up {
+  transform: rotate(90deg);
+}
+
+.meal-items {
+  padding: 0 24rpx;
+}
+
+/* 食物项新布局 */
+.item-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.item-image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 12rpx;
+  margin-right: 18rpx;
+  object-fit: cover;
+}
+
+.item-icon-wrapper {
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  border-radius: 12rpx;
+  margin-right: 18rpx;
+}
+
+.item-icon {
+  font-size: 44rpx;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.item-name {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4rpx;
+}
+
+.item-portion {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 2rpx;
+}
+
+.item-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: 14rpx;
+}
+
+.item-cal {
+  font-size: 26rpx;
+  color: #FF6B35;
+  font-weight: 600;
+}
+
+.item-remark {
+  font-size: 20rpx;
+  color: #FF9A56;
+  margin-top: 4rpx;
+  padding: 3rpx 10rpx;
+  background: rgba(255, 154, 86, 0.12);
+  border-radius: 6rpx;
+  max-width: 140rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-delete {
+  font-size: 36rpx;
+  color: #ccc;
+  margin-left: 10rpx;
+  padding: 4rpx;
+}
+
+/* 餐食项 */
+.meal-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.meal-item:last-of-type {
+  border-bottom: none;
+}
+
+/* 添加按钮 */
+.add-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx 0;
+  border-top: 1rpx solid #f5f5f5;
+}
+
+.add-icon {
+  width: 44rpx;
+  height: 44rpx;
+  line-height: 40rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #5B8DEF;
+  border: 2rpx solid #5B8DEF;
+  border-radius: 50%;
+  margin-right: 12rpx;
+}
+
+.add-item text:last-child {
+  font-size: 26rpx;
+  color: #5B8DEF;
+  font-weight: 500;
+}
+
+/* 右下角悬浮历史按钮 */
+.float-history-btn {
+  position: fixed;
+  right: 30rpx;
+  bottom: 180rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: #5B8DEF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.float-btn-icon {
+  font-size: 48rpx;
+}

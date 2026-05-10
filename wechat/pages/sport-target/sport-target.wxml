@@ -1,0 +1,148 @@
+<scroll-view class="page" scroll-y enhanced shows-scrollbar="{{false}}">
+<view class="page-content">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-left">
+      <text class="nav-btn cancel" bindtap="onCancel">取消</text>
+    </view>
+    <view class="nav-title">设置目标</view>
+    <view class="nav-right">
+      <text class="nav-btn confirm" bindtap="onConfirm">确定</text>
+    </view>
+  </view>
+
+  <!-- 运动类型显示 -->
+  <view class="sport-header">
+    <text class="sport-icon">{{sportIcon}}</text>
+    <text class="sport-name">{{sportName}}</text>
+  </view>
+
+  <!-- 标签切换 -->
+  <view class="tab-container">
+    <view class="tab-list">
+      <view 
+        wx:for="{{tabs}}" 
+        wx:key="key"
+        class="tab-item {{currentTab === item.key ? 'active' : ''}}"
+        bindtap="onTabChange"
+        data-key="{{item.key}}"
+      >
+        {{item.label}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 主显示区域 -->
+  <view class="main-display">
+    <view class="value-display">
+      <text class="value-number">{{displayValue}}</text>
+      <text class="value-unit">{{currentUnit}}</text>
+    </view>
+    <view class="value-label">{{currentLabel}}</view>
+  </view>
+
+  <!-- 历史记录提示（仅距离标签显示） -->
+  <view class="history-tip" wx:if="{{currentTab === 'distance' && historyMaxDistance > 0}}">
+    <text class="history-icon">🏆</text>
+    <text>历史最长: {{historyMaxDistance}} km</text>
+  </view>
+
+  <!-- 快捷选项 -->
+  <view class="quick-options">
+    <view class="options-title">常用{{currentLabel}}</view>
+    <view class="options-list">
+      <view 
+        wx:for="{{quickOptions}}" 
+        wx:key="index"
+        class="option-item {{selectedValue === item.value ? 'selected' : ''}}"
+        bindtap="onOptionSelect"
+        data-value="{{item.value}}"
+      >
+        <text class="option-value">{{item.label}}</text>
+        <text class="option-unit">{{currentUnit}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 滑动选择器 -->
+  <view class="slider-section">
+    <slider 
+      class="value-slider"
+      min="{{minValue}}" 
+      max="{{maxValue}}"
+      step="{{step}}"
+      value="{{selectedValue}}"
+      block-size="28"
+      bindchange="onSliderChange"
+      activeColor="#07c160"
+      backgroundColor="#e0e0e0"
+    />
+    <view class="slider-range">
+      <text>{{minValue}}{{currentUnit}}</text>
+      <text>{{maxValue}}{{currentUnit}}</text>
+    </view>
+  </view>
+
+  <!-- 数据项选择 -->
+  <view class="display-config">
+    <view class="config-title">运动中显示的数据</view>
+    <view class="config-list">
+      <view 
+        class="config-item {{displayConfig.showDistance ? 'active' : ''}}"
+        bindtap="onToggleConfig"
+        data-key="showDistance"
+      >
+        <text class="config-icon">📏</text>
+        <text class="config-label">总距离</text>
+        <view class="config-check">
+          <text wx:if="{{displayConfig.showDistance}}">✓</text>
+        </view>
+      </view>
+      
+      <view 
+        class="config-item {{displayConfig.showDuration ? 'active' : ''}}"
+        bindtap="onToggleConfig"
+        data-key="showDuration"
+      >
+        <text class="config-icon">⏱️</text>
+        <text class="config-label">训练时长</text>
+        <view class="config-check">
+          <text wx:if="{{displayConfig.showDuration}}">✓</text>
+        </view>
+      </view>
+      
+      <view 
+        class="config-item {{displayConfig.showSpeed ? 'active' : ''}}"
+        bindtap="onToggleConfig"
+        data-key="showSpeed"
+      >
+        <text class="config-icon">⚡</text>
+        <text class="config-label">均速</text>
+        <view class="config-check">
+          <text wx:if="{{displayConfig.showSpeed}}">✓</text>
+        </view>
+      </view>
+      
+      <view 
+        class="config-item {{displayConfig.showCalories ? 'active' : ''}}"
+        bindtap="onToggleConfig"
+        data-key="showCalories"
+      >
+        <text class="config-icon">🔥</text>
+        <text class="config-label">消耗</text>
+        <view class="config-check">
+          <text wx:if="{{displayConfig.showCalories}}">✓</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 开始按钮 -->
+  <view class="action-section">
+    <button class="start-btn" bindtap="onStartNow">开始运动</button>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-bottom"></view>
+</view>
+</scroll-view>
